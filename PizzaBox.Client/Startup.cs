@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace project_pizzabox_web
+namespace PizzaBox.Client
 {
   public class Startup
   {
@@ -24,6 +24,11 @@ namespace project_pizzabox_web
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllersWithViews();
+      services.AddScoped<UnitOfWork>();
+      services.AddDbContext<PizzaBoxContext>(ParallelOptions =>
+      {
+        options.UseNpgsql(Configuration.GetConnectionString("pgsql"));
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

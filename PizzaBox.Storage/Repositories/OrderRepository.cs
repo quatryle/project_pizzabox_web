@@ -1,20 +1,36 @@
+using System;
+using System.Collections.Generic;
+using PizzaBox.Domain.Interfaces;
+using PizzaBox.Domain.Models;
+
 namespace PizzaBox.Storage.Repositories
 {
-  public class OrderRepository : IRepository<OrderRepository>
+  public class OrderRepository : IRepository<Order>
   {
-    public void Delete()
+    private readonly PizzaBoxContext _context;
+
+    public OrderRepository(PizzaBoxContext context)
+    {
+      _context = context;
+    }
+
+    public bool Delete()
     {
       throw new System.NotImplementedException();
     }
-    public void Insert(Order order)
+
+    public bool Insert(Order entry)
     {
-      _context.Orders.Add(order);
+      _context.Orders.Add(entry);
+      return true;
     }
-    public void Select()
+
+    public IEnumerable<Order> Select(Func<Order, bool> filter)
     {
       throw new System.NotImplementedException();
     }
-    public void Update()
+
+    public Order Update()
     {
       throw new System.NotImplementedException();
     }

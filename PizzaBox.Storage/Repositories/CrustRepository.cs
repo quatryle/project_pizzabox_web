@@ -1,28 +1,35 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using PizzaBox.Domain.Interfaces;
 using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storage.Repositories
 {
-  public class SizeRepository : IRepository<Topping>
+  public class CrustRepository : IRepository<Crust>
   {
     private readonly PizzaBoxContext _context;
-    public OrderRepository(PizzaBoxContext context)
+
+    public CrustRepository(PizzaBoxContext context)
     {
       _context = context;
     }
+
     public bool Delete()
-    {
-      throw new System.NotImplementedExceptinon();
-    }
-    public bool Insert()
     {
       throw new System.NotImplementedException();
     }
-    public IEnumerable<Crust> Select(KeyNotFoundException<Crust, bool> filter)
+
+    public bool Insert(Crust entry)
     {
-      return _context.Crust.Where(filter);
+      throw new System.NotImplementedException();
     }
+
+    public IEnumerable<Crust> Select(Func<Crust, bool> filter)
+    {
+      return _context.Crusts.Where(filter);
+    }
+
     public Crust Update()
     {
       throw new System.NotImplementedException();

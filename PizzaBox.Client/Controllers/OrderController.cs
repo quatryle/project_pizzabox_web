@@ -1,21 +1,21 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
+using PizzaBox.Domain.Models;
+using PizzaBox.Storage;
 
-
-namespace PizzaBox.Client.Controlelrs
+namespace PizzaBox.Client.Controllers
 {
   [Route("[controller]")]
-  public class OrderController : Controllers
+  public class OrderController : Controller
   {
-    private readonly UnitOfWork _unitofWork;
+    private readonly UnitOfWork _unitOfWork;
 
     public OrderController(UnitOfWork unitOfWork)
     {
-      _unitofWork = unitOfWork;
+      _unitOfWork = unitOfWork;
     }
-
-
-
 
     [HttpGet]
     [HttpPost]
@@ -24,26 +24,28 @@ namespace PizzaBox.Client.Controlelrs
     {
       if (ModelState.IsValid)
       {
-        var crust = _unitofWork.Crusts.Select(c => c.Name == order.SelectedCrust).First();
-        var size = _unitofWork.Size.Select(s => s.Name == order.SelectedSize).First();
+        var crust = _unitOfWork.Crusts.Select(c => c.Name == order.SelectedCrust).First();
+        var size = _unitOfWork.Sizes.Select(s => s.Name == order.SelectedSize).First();
         var toppings = new List<Topping>();
 
-        foreach (var item in order.Toppings)
+        foreach (var item in order.SelectedToppings)
         {
-          toppings.Add(_unitofWork.Toppings.Select(t => t.Name == order.SelectedToppings).First());
+          toppings.Add(_unitOfWork.Toppings.Select(t => t.Name == item).First());
         }
 
-        var newPizza = new PizzaBox { Crust = crust, Size = size, Toppings = toppings };
-        var newOrder = new OrderController { Pizzas = new List<PizzaBox> { newPizza } };
+        var newPizza = new Pizza { Crust = crust, Size = size, Toppings = toppings };
+        var newOrder = new Order { Pizzas = new List<Pizza> { newPizza } };
 
-        _unitofWork.Orders.Insert(newOrder);
-        _unitofWork.Save();
+        _unitOfWork.Orders.Insert(newOrder);
+        _unitOfWork.Save();
 
         ViewBag.Order = newOrder;
 
         return View("checkout");
       }
-      order.Load(_unitofWork);
+
+      order.Load(_unitOfWork);
+
       return View("order", order);
     }
   }

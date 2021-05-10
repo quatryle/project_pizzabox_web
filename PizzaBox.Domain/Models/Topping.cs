@@ -7,6 +7,7 @@ namespace PizzaBox.Domain.Models
   {
     public string Name { get; set; }
     public ICollection<Pizza> Pizzas { get; set; }
+    public int Type { get; set; }
     public override string ToString()
     {
       return $"{Name}";

@@ -2,9 +2,32 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: action/checkout@latest
+      - uses: action/checkout@v2
       - run: dotnet build
-      
+
+    test:
+      runs-on: ubuntu-20.04
+      steps:
+        - uses: actions/checkout@v2
+        - run: dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover -pCoverletOutput='test_coverage/' -l trx -p 'test_result'
+    
+    analyze:
+      needs:
+        - build
+        - test
+      env:
+        SONAR_TOKEN:
+      runs-on: ubuntu-20.04
+      steps:
+        - uses: actions/checkout@v2
+        - run: dotnet tool installl -g dotnet-sonarscanner
+        - run: dotnet-sonarscanner begin -k:'pizzabox' -o:'quatryle' -d.sonar:login=b0c33c5ebb0520e6509f922884214ebe7483ab56 -d:sonar.url:'sonar.io' -d sonar.cs.vstest.reportsPaths
+        - run: dotnet build
+        - run: dotnet-sonarscanner end -d.sonar.login=b0c33c5ebb0520e6509f922884214ebe7483ab56
+
+    # package: docker image
+
 name: ci-pipeline
+
 on: push
 

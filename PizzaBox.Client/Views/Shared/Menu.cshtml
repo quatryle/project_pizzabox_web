@@ -1,0 +1,8 @@
+@model PizzaBox.Client.Models.PizzaViewModel
+
+@foreach (var item in Model.PresetPizzas)
+{
+<div class="form-list">
+  <label class="form-list-label" for="@item">@item</label>
+</div>
+}

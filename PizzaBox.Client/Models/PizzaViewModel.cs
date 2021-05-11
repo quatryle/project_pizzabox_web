@@ -15,7 +15,6 @@ namespace PizzaBox.Client.Models
     public void Load(UnitOfWork unitOfWork)
     {
       PresetPizzas = unitOfWork.PresetPizzas.Select(t => !string.IsNullOrWhiteSpace(t.Name)).ToList();
-      System.Console.WriteLine("Preset pizzas obtained");
     }
 
   }

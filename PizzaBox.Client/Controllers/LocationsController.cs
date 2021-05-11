@@ -6,21 +6,21 @@ using PizzaBox.Storage.Repositories;
 namespace PizzaBox.Client.Controllers
 {
   [Route("[controller]")]
-  public class StoreController : Controller
+  public class LocationsController : Controller
   {
     private readonly UnitOfWork _unitOfWork;
 
-    public StoreController(UnitOfWork unitOfWork)
+    public LocationsController(UnitOfWork unitOfWork)
     {
       _unitOfWork = unitOfWork;
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult Locations()
     {
-      var store = new StoreViewModel();
-
-      return View("Store", store);
+      var store = new LocationsViewModel();
+      store.Load(_unitOfWork);
+      return View("Locations", store);
     }
   }
 }

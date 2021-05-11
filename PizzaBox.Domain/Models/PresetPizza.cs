@@ -15,7 +15,7 @@ namespace PizzaBox.Domain.Models
     public string Top7 { get; set; }
     public override string ToString()
     {
-      return $"{Name} - {Crust} Crust, {Top1} {Top2} {Top3} {Top4} {Top5} {Top6} {Top7}";
+      return $"{Name} - {Crust} Crust {Top1} {Top2} {Top3} {Top4} {Top5} {Top6} {Top7}";
     }
   }
 }

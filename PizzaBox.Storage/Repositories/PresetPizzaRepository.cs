@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PizzaBox.Domain.Interfaces;
 using PizzaBox.Domain.Models;
 
@@ -26,7 +27,7 @@ namespace PizzaBox.Storage.Repositories
 
     public IEnumerable<PresetPizza> Select(Func<PresetPizza, bool> filter)
     {
-      throw new System.NotImplementedException();
+      return _context.PresetPizzas.Where(filter);
     }
 
     public PresetPizza Update()

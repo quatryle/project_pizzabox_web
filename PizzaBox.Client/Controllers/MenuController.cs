@@ -21,7 +21,7 @@ namespace PizzaBox.Client.Controllers
     {
       var menu = new PizzaViewModel();
       menu.Load(_unitOfWork);
-      return View("MeNu", menu);
+      return View("Menu", menu);
     }
   }
 }

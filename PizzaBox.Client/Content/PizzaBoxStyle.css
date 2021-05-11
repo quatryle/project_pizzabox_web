@@ -1,0 +1,23 @@
+body {
+  font-family: Franklin Gothic Medium;
+  font-size: 20px;
+  color: lightblue;
+  background-image: url("FOD Back.jpg");
+  background-color: #282828;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:contain;
+}
+nav:hover{
+background-color: green;
+}
+h1 {
+  color: rgb(238, 168, 168);
+  text-align: center;
+}
+
+p {
+  font-family: Franklin Gothic Medium;
+  font-size: 20px;
+}

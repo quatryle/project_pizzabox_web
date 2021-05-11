@@ -7,7 +7,7 @@ using PizzaBox.Storage.Repositories;
 
 namespace PizzaBox.Client.Models
 {
-  public class LocationViewModel
+  public class LocationsViewModel
   {
     public string Name { get; set; }
     public List<Store> Stores { get; set; }

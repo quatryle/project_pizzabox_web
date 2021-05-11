@@ -105,6 +105,33 @@ namespace PizzaBox.Storage.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("PizzaBox.Domain.Models.OrderHistory", b =>
+                {
+                    b.Property<long>("EntityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CustomID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OrderID")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PizzaName")
+                        .HasColumnType("text");
+
+                    b.Property<double>("PizzaPrice")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("StoreID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("EntityId");
+
+                    b.ToTable("History");
+                });
+
             modelBuilder.Entity("PizzaBox.Domain.Models.Pizza", b =>
                 {
                     b.Property<long>("EntityId")

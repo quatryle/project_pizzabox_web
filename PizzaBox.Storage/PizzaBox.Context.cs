@@ -14,46 +14,47 @@ namespace PizzaBox.Storage
     public DbSet<Size> Sizes { get; set; }
     public DbSet<Topping> Toppings { get; set; }
     public DbSet<PresetPizza> PresetPizzas { get; set; }
+    public DbSet<OrderHistory> History { get; set; }
 
     public PizzaBoxContext(DbContextOptions options) : base(options)
     {
       //_config = Configuration.Build();
     }
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      builder.Entity<Crust>().HasKey(e => e.EntityId);
-      builder.Entity<Customer>().HasKey(e => e.EntityId);
-      builder.Entity<Order>().HasKey(e => e.EntityId);
-      builder.Entity<Pizza>().HasKey(e => e.EntityId);
-      builder.Entity<Size>().HasKey(e => e.EntityId);
-      builder.Entity<Store>().HasKey(e => e.EntityId);
-      builder.Entity<Topping>().HasKey(e => e.EntityId);
-      builder.Entity<PresetPizza>().HasKey(e => e.EntityId);
-      builder.Entity<OrderHistory>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Crust>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Customer>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Order>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Pizza>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Size>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Store>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<Topping>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<PresetPizza>().HasKey(e => e.EntityId);
+      modelBuilder.Entity<OrderHistory>().HasKey(e => e.EntityId);
 
-      builder.Entity<Customer>().HasMany(c => c.Orders).WithOne(o => o.Customers);
-      builder.Entity<Store>().HasMany(s => s.Orders).WithOne(o => o.Stores);
-      //builder.Entity<OrderHistory>().HasOne(s => s.Orders).WithOne(o => o.Stores);
-      //builder.Entity<OrderHistory>().HasOne(s => s.Stores).WithOne(o => o.Stores);
-      //builder.Entity<OrderHistory>().HasOne(s => s.Customer).WithOne(o => o.Stores);
+      modelBuilder.Entity<Customer>().HasMany(c => c.Orders).WithOne(o => o.Customers);
+      modelBuilder.Entity<Store>().HasMany(s => s.Orders).WithOne(o => o.Stores);
+      //modelBuilder.Entity<OrderHistory>().HasMany(s => s.Orders).WithOne(o => o.Stores);
+      //modelBuilder.Entity<OrderHistory>().HasOne(s => s.Stores).WithOne(o => o.Stores);
+      //modelBuilder.Entity<OrderHistory>().HasOne(s => s.Customer).WithOne(o => o.Stores);
 
-      OnModelSeeding(builder);
+      OnModelSeeding(modelBuilder);
     }
-    private static void OnModelSeeding(ModelBuilder builder)
+    private static void OnModelSeeding(ModelBuilder modelBuilder)
     {
       //_config = Configuration;
-      builder.Entity<Customer>().HasData(new[]
+      modelBuilder.Entity<Customer>().HasData(new[]
       {
       new Customer() { EntityId = 1, Name = "John Connor"},
       new Customer() { EntityId = 2, Name = "Thaddeus Good Ignatius Friday"}
       });
-      builder.Entity<Store>().HasData(new[]
+      modelBuilder.Entity<Store>().HasData(new[]
       {
       new Store() { EntityId = 1, Name = "Times Square Store"},
       new Store() { EntityId = 2, Name = "Liberty Park Store"},
       new Store() { EntityId = 3, Name = "Harvard Square Store"}
       });
-      builder.Entity<PresetPizza>().HasData(new[]
+      modelBuilder.Entity<PresetPizza>().HasData(new[]
       {
       new PresetPizza() { EntityId = 1, Name = "Custom Pizza"},
       new PresetPizza() { EntityId = 2, Name = "Margherita Pizza", Crust = "Plain", Top1 = "Tomato Sauce", Top2 = "Mozzarella Cheese"},
@@ -65,20 +66,20 @@ namespace PizzaBox.Storage
       new PresetPizza() { EntityId = 8, Name = "Veggie Pizza", Crust = "Plain", Top1 = "Tomato Sauce", Top2 = "Mozzarella Cheese", Top3 = "Sliced Tomato", Top4 = "Mushrooms", Top5 = "Onions", Top6 = "Olives", Top7 = "Green Peppers"},
       new PresetPizza() { EntityId = 9, Name = "Four Cheese Pizza", Crust = "Plain", Top1 = "Tomato Sauce", Top2 = "Mozzarella Cheese", Top3 = "Cheddar Cheese", Top4 = "Provalone Cheese", Top5 = "Parmesan Cheese"},
       });
-      builder.Entity<Crust>().HasData(new[]
+      modelBuilder.Entity<Crust>().HasData(new[]
       {
       new Crust() { EntityId = 1, Name = "Plain"},
       new Crust() { EntityId = 2, Name = "Thin Crust"},
       new Crust() { EntityId = 3, Name = "Deep Dish"},
       new Crust() { EntityId = 4, Name = "Stuffed Crust"}
       });
-      builder.Entity<Size>().HasData(new[]
+      modelBuilder.Entity<Size>().HasData(new[]
       {
       new Size() { EntityId = 1, Name = "Small"},
       new Size() { EntityId = 2, Name = "Medium"},
       new Size() { EntityId = 3, Name = "Large"}
       });
-      builder.Entity<Topping>().HasData(new[]
+      modelBuilder.Entity<Topping>().HasData(new[]
       {
       new Topping() { EntityId = 1, Name = "Tomato Sauce", Type = 1},
       new Topping() { EntityId = 2, Name = "Alfredo Sauce", Type = 1},

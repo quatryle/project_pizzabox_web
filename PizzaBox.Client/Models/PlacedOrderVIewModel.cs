@@ -14,7 +14,6 @@ namespace PizzaBox.Client.Models
 
     public void Load(UnitOfWork unitOfWork)
     {
-      //Need to select
       History = unitOfWork.History.Select(t => !string.IsNullOrWhiteSpace(t.PizzaName)).ToList();
     }
 

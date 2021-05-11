@@ -28,9 +28,16 @@ namespace PizzaBox.Client
       services.AddControllersWithViews();
       services.AddScoped<UnitOfWork>();
       services.AddDbContext<PizzaBoxContext>(options =>
-      {
-        options.UseNpgsql(Configuration.GetConnectionString("pgsql"));
-      });
+           {
+             if (!string.IsNullOrWhiteSpace(Configuration.GetConnectionString("mssql")))
+             {
+               options.UseSqlServer(Configuration.GetConnectionString("mssql"));
+             }
+             else
+             {
+               options.UseNpgsql(Configuration.GetConnectionString("pgsql"));
+             }
+           });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

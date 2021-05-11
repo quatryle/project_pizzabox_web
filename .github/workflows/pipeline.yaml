@@ -57,7 +57,7 @@ jobs:
       steps:
         - uses: azure/webapps-deploy@v2
         with:
-          app-name: #'insert app name here'
+          app-name: pizzaboxquatryle
           images: quatryle/pizzabox
 
 
